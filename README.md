@@ -134,9 +134,13 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Sample Recommendation Output
 
+The current CLI evaluates multiple profiles. Full evaluation output is documented
+in `model_card.md`; this is one example from `python -m src.main`:
+
 ```
 Loaded songs: 18
 
+=== High-Energy Pop ===
 User profile:
   genre=pop, mood=happy, energy=0.80, danceability=0.80, likes_acoustic=False
 

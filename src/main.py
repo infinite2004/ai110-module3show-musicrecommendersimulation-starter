@@ -18,32 +18,57 @@ except ImportError:
 def main() -> None:
     songs = load_songs("data/songs.csv")
 
-    user_prefs = {
-        "favorite_genre": "pop",
-        "favorite_mood": "happy",
-        "target_energy": 0.80,
-        "target_danceability": 0.80,
-        "likes_acoustic": False,
+    profiles = {
+        "High-Energy Pop": {
+            "favorite_genre": "pop",
+            "favorite_mood": "happy",
+            "target_energy": 0.80,
+            "target_danceability": 0.80,
+            "likes_acoustic": False,
+        },
+        "Chill Lofi": {
+            "favorite_genre": "lofi",
+            "favorite_mood": "chill",
+            "target_energy": 0.35,
+            "target_danceability": 0.60,
+            "likes_acoustic": True,
+        },
+        "Deep Intense Rock": {
+            "favorite_genre": "rock",
+            "favorite_mood": "intense",
+            "target_energy": 0.92,
+            "target_danceability": 0.65,
+            "likes_acoustic": False,
+        },
+        "Adversarial Sad Workout": {
+            "favorite_genre": "folk",
+            "favorite_mood": "intense",
+            "target_energy": 0.90,
+            "target_danceability": 0.85,
+            "likes_acoustic": True,
+        },
     }
 
-    recommendations = recommend_songs(user_prefs, songs, k=5)
+    for profile_name, user_prefs in profiles.items():
+        recommendations = recommend_songs(user_prefs, songs, k=5)
 
-    print("\nUser profile:")
-    print(
-        f"  genre={user_prefs['favorite_genre']}, "
-        f"mood={user_prefs['favorite_mood']}, "
-        f"energy={user_prefs['target_energy']:.2f}, "
-        f"danceability={user_prefs['target_danceability']:.2f}, "
-        f"likes_acoustic={user_prefs['likes_acoustic']}"
-    )
+        print(f"\n=== {profile_name} ===")
+        print("User profile:")
+        print(
+            f"  genre={user_prefs['favorite_genre']}, "
+            f"mood={user_prefs['favorite_mood']}, "
+            f"energy={user_prefs['target_energy']:.2f}, "
+            f"danceability={user_prefs['target_danceability']:.2f}, "
+            f"likes_acoustic={user_prefs['likes_acoustic']}"
+        )
 
-    print("\nTop recommendations:\n")
-    for rank, rec in enumerate(recommendations, start=1):
-        song, score, explanation = rec
-        print(f"{rank}. {song['title']} by {song['artist']} ({song['genre']}, {song['mood']})")
-        print(f"   Score: {score:.2f}")
-        print(f"   Because: {explanation}")
-        print()
+        print("\nTop recommendations:\n")
+        for rank, rec in enumerate(recommendations, start=1):
+            song, score, explanation = rec
+            print(f"{rank}. {song['title']} by {song['artist']} ({song['genre']}, {song['mood']})")
+            print(f"   Score: {score:.2f}")
+            print(f"   Because: {explanation}")
+            print()
 
 
 if __name__ == "__main__":
